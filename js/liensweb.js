@@ -1,31 +1,3 @@
-/* 
-Activité 1
-*/
-
-// Liste des liens Web à afficher. Un lien est défini par :
-// - son titre
-// - son URL
-// - son auteur (la personne qui l'a publié)
-var listeLiens = [
-    {
-        titre: "So Foot",
-        url: "http://sofoot.com",
-        auteur: "yann.usaille"
-    },
-    {
-        titre: "Guide d'autodéfense numérique",
-        url: "http://guide.boum.org",
-        auteur: "paulochon"
-    },
-    {
-        titre: "L'encyclopédie en ligne Wikipedia",
-        url: "http://Wikipedia.org",
-        auteur: "annie.zette"
-    }
-];
-
-// TODO : compléter ce fichier pour ajouter les liens à la page web
-
 // Function that takes an object lien and add it to the DOM
 function addLinkToDom(lien){
 	//Create a title element which will contain the title, the link and the author
@@ -72,9 +44,6 @@ function initialisePage(url){
 		for(var i=listeLiens.length -1; i >=0 ; i--){
 			addLinkToDom(listeLiens[i]);
 		}
-		/*listeLiens.forEach(function (lien){
-			addLinkToDom(lien)		
-		});*/
 	});
 }
 
@@ -90,8 +59,8 @@ function addToFormSection(elt){
 	formSectionElt.appendChild(elt);
 }
 
-// Add to the DOM and Displays the form for user input
-function displayForm(){	
+// Function to create the form and add to the DOM
+function createForm(){
 	var form = document.createElement("form");
 	
 	var usernameElt = document.createElement("input");
@@ -124,23 +93,38 @@ function displayForm(){
 	
 	addToFormSection(form);
 	
+	return form;
+}
+
+// Displays the form and handles his submission
+function displayForm(){	
+	
+	// Create the form
+	var form = createForm();
+	
 	// Adds the event to list for form submission and calls the function to add the link to the DOM
 	form.addEventListener("submit", function(e){
 		e.preventDefault();
 		var link = getLink();
 		if(link.url===null){
-			displayErrorMessage(form.elements.url.value);
+			var message = "Le lien \""+ link.titre + "\" n'est pas valide.";
+			displayMessage(message, "#e60000", "#ff9999");
+			createAddLinkButton();
 			return;
 		}
 		var posted = postLink(link, postAPIUrl);
 		if(posted === false){
-			displayServerErrorMessage();
+			var message = "Erreur Reseau avec le serveur.";
+			displayMessage(message, "#e60000", "#ff9999");
+			createAddLinkButton();
 			return;
 		}
 		
 		addLinkToDom(link);
 	
-		displaySuccessMessage(link.titre);
+		var message = "Le lien \""+ link.titre + "\" a bien été ajouté.";
+		displayMessage(message, "#0077e6", "#cce6ff");
+		createAddLinkButton();
 		console.log(link.titre);
 	});
 }
@@ -174,13 +158,13 @@ function postLink(link, APIUrl){
 	}, true);
 }
 
-// Displays the success message when the link is successfully added to the DOM
-function displaySuccessMessage(linkName){
+// Displays a message on screen
+function displayMessage(message, textColor, backgroundColor){
 	var messageElt = document.getElementById("successMessage");
-	messageElt.textContent = "Le lien \""+ linkName + "\" a bien été ajouté.";
+	messageElt.textContent = message ;
 	messageElt.style.padding = "20px";
-	messageElt.style.color = "#0077e6";
-	messageElt.style.backgroundColor = "#cce6ff"
+	messageElt.style.color = textColor;
+	messageElt.style.backgroundColor = backgroundColor;
 	messageElt.style.borderRadius = "10px";
 	
 	
@@ -188,47 +172,6 @@ function displaySuccessMessage(linkName){
 		messageElt.textContent = "";
 		messageElt.removeAttribute("style");
 	},2000);
-	
-	
-	createAddLinkButton();
-}
-
-// Displays the error message when the link is not valid
-function displayErrorMessage(linkName){
-	var messageElt = document.getElementById("successMessage");
-	messageElt.textContent = "Le lien \""+ linkName + "\" n'est pas valide.";
-	messageElt.style.padding = "20px";
-	messageElt.style.color = "#e60000";
-	messageElt.style.backgroundColor = "#ff9999"
-	messageElt.style.borderRadius = "10px";
-	
-	
-	setTimeout(function(){
-		messageElt.textContent = "";
-		messageElt.removeAttribute("style");
-	},2000);
-	
-	
-	createAddLinkButton();
-}
-
-// Displays the error message when the server is down
-function displayServerErrorMessage(){
-	var messageElt = document.getElementById("successMessage");
-	messageElt.textContent = "Erreur Reseau avec le serveur" ;
-	messageElt.style.padding = "20px";
-	messageElt.style.color = "#e60000";
-	messageElt.style.backgroundColor = "#ff9999"
-	messageElt.style.borderRadius = "10px";
-	
-	
-	setTimeout(function(){
-		messageElt.textContent = "";
-		messageElt.removeAttribute("style");
-	},2000);
-	
-	
-	createAddLinkButton();
 }
 
 // Creates the button for adding a link
