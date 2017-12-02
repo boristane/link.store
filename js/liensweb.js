@@ -47,12 +47,6 @@ function initialisePage(url){
 	});
 }
 
-// Function tha clears the <div> of the page that has the form for user input
-function clearFormSection(){
-	var formSectionElt = document.getElementById("formSection");
-	formSectionElt.innerHTML = "";
-}
-
 // Fuction that adds elements to the <div> of the page with the form for user input
 function addToFormSection(elt){
 	var formSectionElt = document.getElementById("formSection");
@@ -91,16 +85,16 @@ function createForm(){
 	form.appendChild(urlElt);
 	form.appendChild(submitElt);
 	
+	form.setAttribute("id", "submissionForm");
+	
 	addToFormSection(form);
 	
 	return form;
 }
 
-// Displays the form and handles his submission
-function displayForm(){	
+// Handles the form submission
+function handleFormSubmission(){	
 	
-	// Create the form
-	var form = createForm();
 	
 	// Adds the event to list for form submission and calls the function to add the link to the DOM
 	form.addEventListener("submit", function(e){
@@ -112,6 +106,7 @@ function displayForm(){
 			createAddLinkButton();
 			return;
 		}
+		
 		var posted = postLink(link, postAPIUrl);
 		if(posted === false){
 			var message = "Erreur Reseau avec le serveur.";
@@ -124,8 +119,9 @@ function displayForm(){
 	
 		var message = "Le lien \""+ link.titre + "\" a bien été ajouté.";
 		displayMessage(message, "#0077e6", "#cce6ff");
-		createAddLinkButton();
-		console.log(link.titre);
+		
+		$("#submissionForm").hide();
+		$("#addLinkButton").show();
 	});
 }
 
@@ -174,20 +170,6 @@ function displayMessage(message, textColor, backgroundColor){
 	},2000);
 }
 
-// Creates the button for adding a link
-function createAddLinkButton(){
-	var addLinkButton = document.createElement("button");
-	addLinkButton.id = "addLinkButton";
-	addLinkButton.textContent = "Store a link";
-	
-	clearFormSection();
-	addToFormSection(addLinkButton);
-	
-	addLinkButton.addEventListener("click", function(e){
-		clearFormSection();
-		displayForm();	
-	});
-}
 
 // Checks if the URL entered by the user is valid
 function checkURL(url){
@@ -211,9 +193,12 @@ var getAPIUrl = "https://oc-jswebsrv.herokuapp.com/api/liens";
 var postAPIUrl = "https://oc-jswebsrv.herokuapp.com/api/lien";
 
 initialisePage(getAPIUrl);
+var form = createForm();
+$("#submissionForm").hide();
 
 var addLinkButton = document.getElementById("addLinkButton");
 addLinkButton.addEventListener("click", function(e){
-	clearFormSection();
-	displayForm();	
+	$("#addLinkButton").hide();
+	$("#submissionForm").show();
+	handleFormSubmission();
 });
