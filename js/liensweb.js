@@ -4,7 +4,7 @@ function addLinkToDom(lien){
 	var entryElt = document.createElement("h2");
 
 	//Create a link for the main title
-	var titleElt = document.createElement("a")
+	var titleElt = document.createElement("a");
 	titleElt.href = lien.url;
 	titleElt.textContent = lien.titre;
 	titleElt.setAttribute("target", "_blank");
@@ -40,7 +40,7 @@ function addLinkToDom(lien){
 // Function that initialises the page with the links in the array listeLiens
 function initialisePage(url){
 	ajaxGet(url, function(responseText){
-		listeLiens = JSON.parse(responseText);
+		var listeLiens = JSON.parse(responseText);
 		for(var i=listeLiens.length -1; i >=0 ; i--){
 			addLinkToDom(listeLiens[i]);
 		}
@@ -156,18 +156,18 @@ function postLink(link, APIUrl){
 
 // Displays a message on screen
 function displayMessage(message, textColor, backgroundColor){
-	var messageElt = document.getElementById("successMessage");
+	$("#message").fadeIn();
+	var messageElt = document.getElementById("message");
 	messageElt.textContent = message ;
 	messageElt.style.padding = "20px";
 	messageElt.style.color = textColor;
 	messageElt.style.backgroundColor = backgroundColor;
 	messageElt.style.borderRadius = "10px";
 	
-	
 	setTimeout(function(){
-		messageElt.textContent = "";
-		messageElt.removeAttribute("style");
-	},2000);
+		$("#message").fadeOut();
+	}, 2000)
+	
 }
 
 
