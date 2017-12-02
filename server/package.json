@@ -4,8 +4,8 @@
     "description": "link.store server-side ",
     "main": "index.js",
     "scripts": {
-        "start": "node app",
-        "start-watch": "nodemon app",
+        "start": "node app.js",
+        "start-watch": "nodemon app.js",
         "test": "jslint ."
     },
     "keywords": [

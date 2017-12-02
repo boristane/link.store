@@ -41,5 +41,33 @@ router.delete("/links", function (req, res) {
 });
 
 /* "/links/:id" url : access to a specific link */
+// GET
+router.get("/links/:id", function (req, res) {
+    var data;
+    try {
+        data = db.getData("/links[" + req.params.id + "]");
+    } catch (error) {
+        data = {};
+    }
+    res.send(data);
+});
+
+// POST 
+router.post("/links/:id", function (req, res) {
+    var id = req.params.id;
+    const link = {
+        name: req.body.name,
+        title: req.body.title,
+        link: req.body.link
+    };
+    db.push("/links[" + req.params.id + "]", link);
+    res.send(link);
+});
+
+// DELETE
+router.delete("/links/:id", function (req, res, next) {
+    db.delete("/links[" + req.params.id + "]");
+    res.redirect("/api/links");
+});
 
 module.exports = router;
