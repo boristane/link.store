@@ -23,8 +23,15 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
+    var message = err.message;
+    var error = req.app.get('env') === 'development' ? err : {};
+
     res.status(err.status || 500);
     console.log(err);
+    res.send({
+        error: error,
+        message: message
+    });
 });
 
 app.listen(PORT, function () {

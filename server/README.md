@@ -1,6 +1,6 @@
 # Server-side
 
-> link.store server-side
+> link.store server-side (REST API)
 
 ## Build Setup
 
