@@ -9,6 +9,8 @@ router.get("/", function (req, res) {
     res.redirect("api/links");
 });
 
+/* "/links" url : access to all links */
+// GET
 router.get("/links", function (req, res) {
     var data;
     try {
@@ -21,6 +23,7 @@ router.get("/links", function (req, res) {
     });
 });
 
+// POST
 router.post("/links", function (req, res) {
     const link = {
         name: req.body.name,
@@ -30,5 +33,13 @@ router.post("/links", function (req, res) {
     db.push("/links[]", link, true);
     res.redirect("/api/links");
 });
+
+// DELETE
+router.delete("/links", function (req, res) {
+    db.delete("/links");
+    res.redirect("/api/links");
+});
+
+/* "/links/:id" url : access to a specific link */
 
 module.exports = router;
