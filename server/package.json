@@ -17,7 +17,8 @@
     "license": "ISC",
     "dependencies": {
         "body-parser": "^1.18.2",
-        "express": "^4.16.2"
+        "express": "^4.16.2",
+        "node-json-db": "^0.7.3"
     },
     "devDependencies": {
         "jslint": "^0.11.0",
