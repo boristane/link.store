@@ -8,7 +8,7 @@
 # install dependencies
 npm install
 
-# serve at localhost:8000
+# serve at localhost:3000
 npm run start
 
 # serve and watch for file change
