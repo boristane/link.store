@@ -1,8 +1,15 @@
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: #eee;
+}
+
+#content, #formSection, #messageSection{
     margin-left: 30px;
     margin-right: 30px;
+}
+
+#content p{
+    font-size: 1.2em;
 }
 
 span {
@@ -16,17 +23,6 @@ span {
     margin-bottom: 10px;
 }
 
-#username{
-	width: 12%;
-	margin: 5px;
-}
-
-#linkName{
-	width: 18%;
-	margin: 5px;
-}
-
-#url{
-	width: 18%;
-	margin: 5px;
+#submissionForm div{
+    padding: 10px;
 }
