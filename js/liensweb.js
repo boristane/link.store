@@ -103,15 +103,14 @@ function handleFormSubmission(){
 		if(link.url===null){
 			var message = "Le lien \""+ link.title + "\" n'est pas valide.";
 			displayMessage(message, "#e60000", "#ff9999");
-			createAddLinkButton();
 			return;
 		}
 		
 		var posted = postLink(link, postAPIUrl);
+		return;
 		if(posted === false){
 			var message = "Erreur Reseau avec le serveur.";
 			displayMessage(message, "#e60000", "#ff9999");
-			createAddLinkButton();
 			return;
 		}
 		
@@ -119,7 +118,6 @@ function handleFormSubmission(){
 	
 		var message = "Le lien \""+ link.title + "\" a bien été ajouté.";
 		displayMessage(message, "#0077e6", "#cce6ff");
-		
 		$("#submissionForm").hide();
 		$("#addLinkButton").show();
 	});
@@ -166,7 +164,8 @@ function displayMessage(message, textColor, backgroundColor){
 	
 	setTimeout(function(){
 		$("#message").fadeOut();
-	}, 2000)
+	}, 2000);
+	console.log("test");
 	
 }
 
