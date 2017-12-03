@@ -6,7 +6,7 @@ function addLinkToDom(lien){
 	//Create a link for the main title
 	var titleElt = document.createElement("a");
 	titleElt.href = lien.url;
-	titleElt.textContent = lien.titre;
+	titleElt.textContent = lien.title;
 	titleElt.setAttribute("target", "_blank");
 
 	//Create a span element to put the url in
@@ -16,7 +16,7 @@ function addLinkToDom(lien){
 
 	//Create a span element for the author 
 	var authorElt = document.createElement("span");
-	authorElt.textContent = "Ajouté par " + lien.auteur;
+	authorElt.textContent = "Ajouté par " + lien.author;
 
 	//Edit the syle
 	entryElt.style.backgroundColor = "white";
@@ -41,8 +41,8 @@ function addLinkToDom(lien){
 function initialisePage(url){
 	ajaxGet(url, function(responseText){
 		var listeLiens = JSON.parse(responseText);
-		for(var i=listeLiens.length -1; i >=0 ; i--){
-			addLinkToDom(listeLiens[i]);
+		for(var i=listeLiens.links.length -1; i >=0 ; i--){
+			addLinkToDom(listeLiens.links[i]);
 		}
 	});
 }
@@ -101,7 +101,7 @@ function handleFormSubmission(){
 		e.preventDefault();
 		var link = getLink();
 		if(link.url===null){
-			var message = "Le lien \""+ link.titre + "\" n'est pas valide.";
+			var message = "Le lien \""+ link.title + "\" n'est pas valide.";
 			displayMessage(message, "#e60000", "#ff9999");
 			createAddLinkButton();
 			return;
@@ -117,7 +117,7 @@ function handleFormSubmission(){
 		
 		addLinkToDom(link);
 	
-		var message = "Le lien \""+ link.titre + "\" a bien été ajouté.";
+		var message = "Le lien \""+ link.title + "\" a bien été ajouté.";
 		displayMessage(message, "#0077e6", "#cce6ff");
 		
 		$("#submissionForm").hide();
@@ -135,9 +135,9 @@ function getLink(){
 	url = checkURL(url);
 	
 	var link = {
-		titre: linkName,
+		title: linkName,
         url: url,
-        auteur: username
+        author: username
 	};
 	
 	return link;	
@@ -189,8 +189,8 @@ function checkURL(url){
 
 /*------------------------Main Script----------------------*/
 
-var getAPIUrl = "https://oc-jswebsrv.herokuapp.com/api/liens";
-var postAPIUrl = "https://oc-jswebsrv.herokuapp.com/api/lien";
+var getAPIUrl = "http://localhost:3000/api/links";
+var postAPIUrl = "http://localhost:3000/api/links";
 
 initialisePage(getAPIUrl);
 var form = createForm();

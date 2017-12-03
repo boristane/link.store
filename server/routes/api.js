@@ -26,9 +26,9 @@ router.get("/links", function (req, res) {
 // POST
 router.post("/links", function (req, res) {
     const link = {
-        name: req.body.name,
+        author: req.body.author,
         title: req.body.title,
-        link: req.body.link
+        url: req.body.url
     };
     db.push("/links[]", link, true);
     res.redirect("/api/links");
@@ -50,9 +50,9 @@ router.get("/links/:id", function (req, res) {
 // POST 
 router.post("/links/:id", function (req, res) {
     const link = {
-        name: req.body.name,
+        author : req.body.author,
         title: req.body.title,
-        link: req.body.link
+        url: req.body.url
     };
     db.push("/links[" + req.params.id + "]", link);
     res.send(link);

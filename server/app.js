@@ -2,6 +2,14 @@ var express = require('express'),
     bodyParser = require('body-parser');
 
 var app = express();
+
+// Allow CORS shit 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 var apiRouter = require('./routes/api');
 
 const PORT = 3000;
@@ -13,7 +21,7 @@ app.use(bodyParser.urlencoded({
 
 // Routes
 app.use('/api', apiRouter);
-
+   
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -35,5 +43,5 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(PORT, function () {
-    console.log("Running in port " + PORT);
+    console.log("Running at port " + PORT);
 });
