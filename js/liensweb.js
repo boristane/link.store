@@ -1,24 +1,26 @@
 
 
 // Function that takes an object lien and add it to the DOM
-function addLinkToDom(lien){
+function addLinkToDom(link){
 	//Create a title element which will contain the title, the link and the author
 	var entryElt = document.createElement("p");
 
 	//Create a link for the main title
 	var titleElt = document.createElement("a");
-	titleElt.href = lien.url;
-	titleElt.textContent = lien.title;
+	titleElt.href = link.url;
+	titleElt.textContent = link.title;
 	titleElt.setAttribute("target", "_blank");
 
 	//Create a span element to put the url in
-	var lienElt = document.createElement("span");
-	lienElt.textContent = lien.url;
-	lienElt.classList.add("lien");
+	var linkElt = document.createElement("span");
+
+	linkElt.textContent = link.url;
+	linkElt.classList.add("link");
+	
 
 	//Create a span element for the author 
 	var authorElt = document.createElement("span");
-	authorElt.textContent = "stored by " + lien.author;
+	authorElt.textContent = "stored by " + link.author;
 
 	//Edit the syle
 	entryElt.style.backgroundColor = "white";
@@ -26,11 +28,12 @@ function addLinkToDom(lien){
 	entryElt.style.borderRadius = "10px";
 	titleElt.style.textDecoration = "none";
 	titleElt.style.color = "#428bca";
+	linkElt.style.wordWrap="break-word";
 	
 
 	//Append all the children nodes
 	entryElt.appendChild(titleElt);
-	entryElt.appendChild(lienElt);
+	entryElt.appendChild(linkElt);
 	entryElt.appendChild(document.createElement("br"));
 	entryElt.appendChild(authorElt);
 	
