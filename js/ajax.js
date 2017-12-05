@@ -11,7 +11,7 @@ function ajaxGet(url, callback){
 	
 	req.addEventListener("error", function(){
 		console.log("Server error with : " + url);
-	});;
+	});
 	
 	req.send(null);
 }
@@ -29,7 +29,7 @@ function ajaxPost(url, data, callback, isJson){
 	
 	req.addEventListener("error", function(){
 		console.log("Server error with url : " + url);
-	});;
+	});
 	
 	if(isJson){
 		req.setRequestHeader("Content-Type","application/json");
